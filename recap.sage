@@ -23,13 +23,11 @@ f = R.lagrange_polynomial(values)
 NC.write('2\n')
 for i in range(11):
   data = NC.read_until('\n')
-  print data
   to_enc = int(data.split(' ')[2], 16)
   enc = hex(int(f((to_enc - 0xFF)/ 0x100) % (11 ** 128)))
 
   NC.write(enc[:-1] + '\n')
 
-print NC.read()
-print NC.read()
+print NC.read_until('}').split('\n')[1]
 
 NC.close()
